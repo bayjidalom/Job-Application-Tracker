@@ -7,6 +7,7 @@ const allContainer = document.getElementById("all-container");
 const interviewContainer = document.getElementById("interview-container");
 const rejectedContainer = document.getElementById("reject-container");
 
+
 function switchTab(tab) {
     const tabs = ["all", "interview", "rejected"];
 
@@ -36,6 +37,12 @@ function switchTab(tab) {
         }
     }
 }
+
+const totalStat = document.getElementById("stat-total")
+const interviewStat = document.getElementById("stat-interview")
+const rejectStat = document.getElementById("stat-reject")
+
+totalStat.innerText = allContainer.children.length;
 
 switchTab(currentTab);
 
