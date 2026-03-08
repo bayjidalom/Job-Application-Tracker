@@ -8,16 +8,15 @@ const interviewContainer = document.getElementById("interview-container");
 const rejectedContainer = document.getElementById("reject-container");
 console.log(allContainer, interviewContainer, rejectedContainer);
 
-const emptyState = document.getElementById("empty-state");          //👈
-const availableStat = document.getElementById("available");         //⚪
+const emptyState = document.getElementById("empty-state");
+const availableStat = document.getElementById("available");
 
 function switchTab(tab) {
-    // console.log(tab)     // all , interview , rejected
     const tabs = ["all", "interview", "rejected"];
 
-    currentTab = tab;                                //⚪
+    currentTab = tab;
 
-    //--01
+
     for (const t of tabs) {
         const tabName = document.getElementById("tab-" + t)
         if (t === tab) {
@@ -28,36 +27,34 @@ function switchTab(tab) {
             tabName.classList.add(...tabInactive)
         }
 
-        updateStat()                        //⚪
+        updateStat()
     }
 
-    //--02
+
     const pages = [allContainer, interviewContainer, rejectedContainer];
     for (const section of pages) {
         section.classList.add("hidden");
 
-        // emptyState.classList.add("hidden")        //👈  
-
     }
-    emptyState.classList.add('hidden')          //👈
+    emptyState.classList.add('hidden')
 
     if (tab === "all") {
         allContainer.classList.remove("hidden")
         if (allContainer.children.length < 1) {
-            emptyState.classList.remove("hidden");         //👈
+            emptyState.classList.remove("hidden");
         }
     }
     else if (tab === "interview") {
         interviewContainer.classList.remove("hidden")
         if (interviewContainer.children.length < 1) {
-            emptyState.classList.remove('hidden');          //👈
+            emptyState.classList.remove('hidden');
 
         }
     }
     else {
         rejectedContainer.classList.remove("hidden");
         if (rejectedContainer.children.length < 1) {
-            emptyState.classList.remove('hidden');          //👈
+            emptyState.classList.remove('hidden');
 
         }
     }
@@ -67,64 +64,50 @@ const totalStat = document.getElementById("stat-total")
 const interviewStat = document.getElementById("stat-interview")
 const rejectStat = document.getElementById("stat-reject")
 
-// totalStat.innerText = allContainer.children.length;
 
-switchTab(currentTab);       // call korle all selected dekhabe
+switchTab(currentTab);
 
-//--03
 document.getElementById("jobs-container").addEventListener("click", function (event) {
     const clickedElement = event.target;
-    // console.log(clickedElement.parentNode.parentNode.parentNode.parentNode)    //Not safe it
     const card = clickedElement.closest(".card");
-    
-    
-    const parent = card.parentNode;                       //👈delete korte
-    const status = card.querySelector(".status");                  //👈
+
+
+    const parent = card.parentNode;
+    const status = card.querySelector(".status");
 
 
 
     if (clickedElement.classList.contains("interview")) {
-        status.innerText = "interviewed";                       //👈
+        status.innerText = "interviewed";
         interviewContainer.appendChild(card);
-        // updateStat()          // last e
 
     }
     if (clickedElement.classList.contains("rejected")) {
-        status.innerText = "Rejected";                         //👈
+        status.innerText = "Rejected";
         rejectedContainer.appendChild(card);
-        // updateStat()  //last e
 
 
     }
     if (clickedElement.classList.contains("delete")) {
-        // interviewContainer.appendChild(card);
-        // console.log(parent)
-        parent.removeChild(card)                        //👈
-        // updateStat() // last e
-
+        parent.removeChild(card)
     }
 
-    updateStat();      //🟢ut e called
+    updateStat();
 })
 
-// 37m-47m
-
 function updateStat() {
-    // totalStat.innerText = allContainer.children.length;
-    // interviewStat.innerText = interviewContainer.children.length;
-    // rejectStat.innerText = rejectedContainer.children.length;
 
     const counts = {
         all: allContainer.children.length,
-        interview: interviewContainer.children.length,     //⚪
+        interview: interviewContainer.children.length,
         rejected: rejectedContainer.children.length,
     };
 
     totalStat.innerText = counts.all;
     interviewStat.innerText = counts.interview;
-    rejectStat.innerText = counts.rejected;                 //⚪
+    rejectStat.innerText = counts.rejected;
 
-    availableStat.innerText = counts[currentTab];        //⚪
+    availableStat.innerText = counts[currentTab];
 
     if (counts[currentTab] < 1) {
         emptyState.classList.remove("hidden")
@@ -136,6 +119,3 @@ function updateStat() {
 }
 
 updateStat()
-
-
-// 47-57m
